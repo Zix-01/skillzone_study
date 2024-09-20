@@ -5,12 +5,7 @@ from catalog.models import Category, Product
 class Command(BaseCommand):
 
     @staticmethod
-    def json_read_categories(filepath='path/to/categories.json'):
-        with open(filepath, 'r') as f:
-            return json.load(f)
-
-    @staticmethod
-    def json_read_products(filepath='path/to/products.json'):
+    def json_read_categories(filepath='hw_2/catalog/courses.json'):
         with open(filepath, 'r') as f:
             return json.load(f)
 
