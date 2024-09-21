@@ -2,11 +2,17 @@ from django.core.management.base import BaseCommand
 import json
 from catalog.models import Category, Product
 
+
 class Command(BaseCommand):
 
     @staticmethod
-    def json_read_categories(filepath='hw_2/catalog/courses.json'):
-        with open(filepath, 'r') as f:
+    def json_read_categories(filepath='courses.json'):
+        with open(filepath, 'r', encoding="utf-8") as f:
+            return json.load(f)
+
+    @staticmethod
+    def json_read_products(filepath='products.json'):
+        with open(filepath, 'r', encoding="utf-8") as f:
             return json.load(f)
 
     def handle(self, *args, **options):
