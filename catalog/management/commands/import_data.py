@@ -11,7 +11,7 @@ class Command(BaseCommand):
             return json.load(f)
 
     @staticmethod
-    def json_read_products(filepath='products.json'):
+    def json_read_products(filepath='courses.json'):
         with open(filepath, 'r', encoding="utf-8") as f:
             return json.load(f)
 
@@ -23,20 +23,21 @@ class Command(BaseCommand):
         for category_data in self.json_read_categories():
             category_for_create.append(
                 Category(
-                    name=category_data['name'],
-                    description=category_data.get('description', '')
+                    name=category_data['fields']['name'],
+                    description=category_data['fields'].get('description', '')
                 )
             )
         Category.objects.bulk_create(category_for_create)
 
         product_for_create = []
         for product_data in self.json_read_products():
-            category = Category.objects.get(pk=product_data['category_id'])
+            category = Category.objects.get(name=product_data['fields']['name'])
             product_for_create.append(
                 Product(
-                    name=product_data['name'],
+                    name=product_data['fields']['name'],
                     description=product_data.get('description', ''),
-                    price=product_data['price'],
+                    price=product_data.get('price', 0),
+                    created_at=product_data.get('created_at'),
                     category=category
                 )
             )
