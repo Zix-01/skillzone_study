@@ -37,7 +37,6 @@ class Command(BaseCommand):
                     name=product_data['fields']['name'],
                     description=product_data.get('description', ''),
                     price=product_data.get('price', 0),
-                    created_at=product_data.get('created_at'),
                     category=category
                 )
             )

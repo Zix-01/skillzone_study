@@ -17,8 +17,8 @@ class Product(models.Model):
         help_text="Введите цену в рублях.",
         verbose_name="Стоимость"
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(null=True, blank=True)
+    updated_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         verbose_name = 'Продукт'
