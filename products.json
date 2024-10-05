@@ -1,120 +1,80 @@
 [
   {
     "model": "catalog.product",
-    "pk": 9,
+    "pk": 1,
     "fields": {
       "name": "Технические навыки",
-      "description": "",
+      "description": "Курс по IT разработке",
       "image": "",
-      "category": 109,
-      "price": 0,
+      "category": 1,
+      "price": 87000,
       "created_at": null,
       "updated_at": null
     }
   },
   {
     "model": "catalog.product",
-    "pk": 10,
+    "pk": 2,
     "fields": {
       "name": "Менеджмент",
       "description": "",
       "image": "",
-      "category": 110,
-      "price": 0,
+      "category": 2,
+      "price": 44000,
       "created_at": null,
       "updated_at": null
     }
   },
   {
     "model": "catalog.product",
-    "pk": 11,
+    "pk": 3,
     "fields": {
       "name": "Дизайн",
       "description": "",
       "image": "",
-      "category": 111,
-      "price": 0,
+      "category": 3,
+      "price": 78000,
       "created_at": null,
       "updated_at": null
     }
   },
   {
     "model": "catalog.product",
-    "pk": 12,
+    "pk": 4,
     "fields": {
       "name": "Soft skills",
       "description": "",
       "image": "",
-      "category": 112,
-      "price": 0,
+      "category": 4,
+      "price": 50000,
       "created_at": null,
       "updated_at": null
     }
   },
   {
     "model": "catalog.product",
-    "pk": 13,
+    "pk": 5,
     "fields": {
       "name": "Наука и техника",
       "description": "",
       "image": "",
-      "category": 113,
-      "price": 0,
+      "category": 5,
+      "price": 45000,
       "created_at": null,
       "updated_at": null
     }
   },
   {
     "model": "catalog.product",
-    "pk": 14,
+    "pk": 6,
     "fields": {
       "name": "Иностранные языки",
       "description": "",
       "image": "",
-      "category": 114,
-      "price": 0,
+      "category": 6,
+      "price": 78000,
       "created_at": null,
       "updated_at": null
-    }
-  },
-  {
-    "model": "catalog.category",
-    "pk": 109,
-    "fields": {
-      "name": "Технические навыки",
-      "description": "Курс по приобретению навыков IT и кибербезопасности"
-    }
-  },
-  {
-    "model": "catalog.category",
-    "pk": 110,
-    "fields": {
-      "name": "Менеджмент",
-      "description": "Курс по приобретению навыков менеджмента и изучения бизнес-среды"
-    }
-  },
-  {
-    "model": "catalog.category",
-    "pk": 111,
-    "fields": {
-      "name": "Дизайн",
-      "description": "Курс по приобретению навыков графического дизайна, веб-дизайна и анимации"
-    }
-  },
-  {
-    "model": "catalog.category",
-    "pk": 112,
-    "fields": {
-      "name": "Soft skills",
-      "description": "Курс по приобретению навыков тайм-менеджмента, мотивации и личностного роста"
-    }
-  },
-  {
-    "model": "catalog.category",
-    "pk": 113,
-    "fields": {
-      "name": "Наука и техника",
-      "description": "Курсы по приобретению навыков в естественных и технических науках"
     }
   }
 ]
