@@ -1,9 +1,9 @@
 from django.shortcuts import render
 
-from catalog.models import Product
+from catalog.models import Product, Category
 
 
-def main_page(request):
+def list_products(request):
     products = Product.objects.all()
     context = {'products': products}
     return render(request, 'main_page.html', context)
