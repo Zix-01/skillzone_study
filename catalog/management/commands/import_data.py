@@ -31,13 +31,12 @@ class Command(BaseCommand):
 
         product_for_create = []
         for product_data in self.json_read_products():
-            category = Category.objects.get(name=product_data['fields']['name'])
             product_for_create.append(
                 Product(
                     name=product_data['fields']['name'],
-                    description=product_data.get('description', ''),
+                    description=product_data.get('description'),
                     price=product_data.get('price', 0),
-                    category=category
+                    category=Category
                 )
             )
         Product.objects.bulk_create(product_for_create)

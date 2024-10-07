@@ -1,9 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
-from catalog.models import Product, Category
+from catalog.models import Product
 
 
-def list_products(request):
+def main_page(request):
     products = Product.objects.all()
     context = {'products': products}
-    return render(request, 'main_page.html', context)
+    return render(request, 'cards_list.html', context)
+
+def product_page(request):
+    product = get_object_or_404(Product, pk=pk)
+    context = {'product': product}
+    return render(request, 'product_page.html', context)
