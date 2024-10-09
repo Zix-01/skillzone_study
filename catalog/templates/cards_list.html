@@ -15,8 +15,9 @@
             </div>
             <div class="card-body">
                 <h1 class="card-title pricing-card-title" style="font-size: 19px; font-weight: 300;">
-                    {{ product.description }}</h1>
-                <a class="btn btn-primary" href="{% url 'catalog:product_page' product.pk %}" role="button">Подробнее</a>
+                    {{ product.description|truncatewords:100 }}</h1>
+                <a class="btn btn-primary" href="{% url 'catalog:product_page' product.pk %}"
+                   role="button">Подробнее</a>
             </div>
         </div>
     </div>
