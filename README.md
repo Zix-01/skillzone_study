@@ -13,8 +13,8 @@
 - JavaScript
 - Bootstrap
 
-###Вид
+### Примеры
 
 ![image](https://github.com/user-attachments/assets/318e503b-7cc4-437d-a7bc-6a9665e23216)
 
--скриншот главной страницы-
+*скриншот главной страницы*
