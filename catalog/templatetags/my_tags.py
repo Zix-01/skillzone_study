@@ -4,6 +4,8 @@ register = template.Library()
 
 @register.filter()
 def media_path(path):
-    if path:
-        return f'media/{path}'
-    return '#'
+    if path and not path.startswith('media/'):
+        return f'media/{path}' if not path.startswith('media/') else path
+    return path or '#'
+
+
