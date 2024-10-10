@@ -1,12 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 
 from catalog.models import Product
+from django.views.generic import ListView
 
+class MainPageView(ListView):
+    model = Product
 
-def main_page(request):
-    products = Product.objects.all()
-    context = {'products': products}
-    return render(request, 'cards_list.html', context)
 
 def product_page(request, pk):
     product = get_object_or_404(Product, pk=pk)

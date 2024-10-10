@@ -1,8 +1,7 @@
-{% extends 'main_page.html' %}
-{% load my_tags %}
+{% extends 'products/main_page.html' %}
 {% block content %}
+{% load my_tags %}
 <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-    {% for product in products %}
     <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm">
             {% if product.image %}
@@ -15,12 +14,10 @@
             </div>
             <div class="card-body">
                 <h1 class="card-title pricing-card-title" style="font-size: 19px; font-weight: 300;">
-                    {{ product.description|truncatewords:100 }}</h1>
-                <a class="btn btn-primary" href="{% url 'catalog:product_page' product.pk %}"
-                   role="button">Подробнее</a>
+                    {{ product.description }}</h1>
+                <button type="button" class="w-100 btn btn-lg btn-outline-primary">Узнать больше</button>
             </div>
         </div>
     </div>
-    {% endfor %}
 </div>
 {% endblock %}
