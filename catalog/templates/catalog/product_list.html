@@ -8,7 +8,7 @@
             {% if product.image %}
             <img src="{{ product.image.url }}">
             {% else %}
-            <p>No image available</p>
+            <p>Изображение не доступно</p>
             {% endif %}
             <div class="card-header py-3">
                 <h4 class="my-0 fw-normal">{{ product.name }}</h4>
@@ -18,6 +18,10 @@
                     {{ product.description|truncatewords:100 }}</h1>
                 <a class="btn btn-primary" href="{% url 'catalog:product_detail' product.pk %}"
                    role="button">Подробнее</a>
+                <a class="btn btn-primary" href="{% url 'catalog:product_update' product.pk %}"
+                   role="button">Редактировать</a>
+                <a class="btn btn-primary" href="{% url 'catalog:product_delete' product.pk %}"
+                   role="button">Удалить</a>
             </div>
         </div>
     </div>
