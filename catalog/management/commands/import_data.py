@@ -11,7 +11,7 @@ class Command(BaseCommand):
             return json.load(f)
 
     @staticmethod
-    def json_read_products(filepath='products.json'):
+    def json_read_products(filepath='catalog.json'):
         with open(filepath, 'r', encoding="utf-8") as f:
             return json.load(f)
 

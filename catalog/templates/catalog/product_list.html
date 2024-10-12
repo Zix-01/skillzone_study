@@ -1,4 +1,4 @@
-{% extends 'products/main_page.html' %}
+{% extends 'catalog/main_page.html' %}
 {% load my_tags %}
 {% block content %}
 <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
@@ -16,7 +16,7 @@
             <div class="card-body">
                 <h1 class="card-title pricing-card-title" style="font-size: 19px; font-weight: 300;">
                     {{ product.description|truncatewords:100 }}</h1>
-                <a class="btn btn-primary" href="{% url 'catalog:product_page' product.pk %}"
+                <a class="btn btn-primary" href="{% url 'catalog:product_detail' product.pk %}"
                    role="button">Подробнее</a>
             </div>
         </div>

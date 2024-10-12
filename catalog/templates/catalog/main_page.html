@@ -189,10 +189,11 @@
 
 <div class="container py-3">
     <header>
-        {% include 'products/includes/inc_menu.html' %}
+        {% include 'catalog/includes/inc_menu.html' %}
     </header>
 
     <main>
+        <a class="btn btn-primary mb-3" href="{% url 'catalog:product_create' %}" role="button">Добавить продукт</a>
         {% block content %}
         {% endblock %}
     </main>
