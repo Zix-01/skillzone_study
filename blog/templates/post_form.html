@@ -9,10 +9,10 @@
                 <div class="d-grid gap-2 col-10 mx-auto">
                     {% if object %}
                     <button type="submit" class="btn btn-lg btn-block btn-success">Редактировать</button>
-                    <a href="{% url 'blog:blog_list' %}" type="submit" class="btn btn-lg btn-block btn-danger mt-1">Отменить</a>
+                    <a href="{% url 'blog:post_list' %}" type="submit" class="btn btn-lg btn-block btn-danger mt-1">Отменить</a>
                     {% else %}
                     <button type="submit" class="btn btn-lg btn-block btn-success">Создать</button>
-                    <a href="{% url 'blog:blog_list' %}" type="submit" class="btn btn-lg btn-block btn-danger mt-1">Отменить</a>
+                    <a href="{% url 'blog:post_list' %}" type="submit" class="btn btn-lg btn-block btn-danger mt-1">Отменить</a>
                     {% endif %}
                 </div>
             </form>

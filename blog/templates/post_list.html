@@ -19,10 +19,10 @@
                         <img class="card-img-top mb-4" src="{{ object.image | media_filter }}">
                         <p class="card-text">{{ object.body | truncatechars:100 }}</p>
                         <div class="d-grid gap-2  mx-auto">
-                            <a href="{% url 'blog:blog_view' object.pk %}" class="btn btn-sm btn-primary">Посмотреть</a>
-                            <a href="{% url 'blog:blog_edit' object.pk %}" class="btn btn-sm btn-secondary">Изменить</a>
+                            <a href="{% url 'blog:post_view' object.pk %}" class="btn btn-sm btn-primary">Посмотреть</a>
+                            <a href="{% url 'blog:post_edit' object.pk %}" class="btn btn-sm btn-secondary">Изменить</a>
                         </div>
-                        <a href="{% url 'blog:blog_delete' object.pk %}" type="button"
+                        <a href="{% url 'blog:post_delete' object.pk %}" type="button"
                            class="btn btn-md mt-3 btn-danger" style="float:right">Удалить</a>
                         <p class="text-body-secondary text-sm"></p>
                         <div class="blockquote-footer mt-4">

@@ -1,5 +1,6 @@
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.db.models import PositiveIntegerField
 from django.urls import reverse
 
 
@@ -16,6 +17,11 @@ class Product(models.Model):
     )
     created_at = models.DateTimeField(null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
+    views_counter = PositiveIntegerField(
+        verbose_name="счётчик просмотров",
+        help_text="Укажите количество просмотров",
+        default=0
+    )
 
     class Meta:
         verbose_name = 'Продукт'
