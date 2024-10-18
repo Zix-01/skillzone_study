@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import PositiveIntegerField
 from django.urls import reverse
 
 class BlogPost(models.Model):
@@ -8,7 +9,11 @@ class BlogPost(models.Model):
     preview_image = models.ImageField(upload_to='blog_previews/')
     created_at = models.DateTimeField(auto_now_add=True)
     is_published = models.BooleanField(default=True)
-    views = models.PositiveIntegerField(default=0)
+    views_counter = PositiveIntegerField(
+        verbose_name="счётчик просмотров",
+        help_text="Укажите количество просмотров",
+        default=0
+    )
 
     def __str__(self):
         return self.title
