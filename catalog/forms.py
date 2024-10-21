@@ -1,9 +1,18 @@
-from django.forms import ModelForm, forms
+from django.forms import ModelForm, forms, BooleanField
 
 from catalog.models import Product
 
+class StyleFormMixin(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for fild_name, fild in self.fields.items():
+            if isinstance(fild, BooleanField):
+                fild.widget.attrs['class'] = "form-check-input"
+            else:
+                fild.widget.attrs['class'] = "form-control"
 
-class ProductForm(ModelForm):
+
+class ProductForm(StyleFormMixin, ModelForm):
 
     forbidden_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
 
