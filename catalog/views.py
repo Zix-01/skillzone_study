@@ -40,6 +40,9 @@ class ProductUpdateView(UpdateView):
         else:
             context_data['formset'] = ProductFormset(instance=self.object)
 
+        active_version = Version.objects.filter(product=self.object, is_active=True).first()
+        context_data['active_version'] = active_version
+
         return context_data
 
     def form_valid(self, form):

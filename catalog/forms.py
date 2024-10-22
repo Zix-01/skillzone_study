@@ -1,6 +1,7 @@
 from django.forms import ModelForm, forms, BooleanField
 
-from catalog.models import Product
+from catalog.models import Product, Version
+
 
 class StyleFormMixin(forms.Form):
     def __init__(self, *args, **kwargs):
@@ -33,3 +34,9 @@ class ProductForm(StyleFormMixin, ModelForm):
             if word in cleaned_data:
                 raise forms.ValidationError(f'Недопустимое слово в поле {field_name}')
         return cleaned_data
+
+
+class VersionForm(StyleFormMixin, ModelForm):
+    class Meta:
+        model = Version
+        fields = '__all__'
