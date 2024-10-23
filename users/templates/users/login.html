@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <meta charset="UTF-8">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <form method="post" enctype="multipart/form-data">
+                <div class="card">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        Вход
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
