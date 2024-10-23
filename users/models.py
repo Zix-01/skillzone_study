@@ -1,7 +1,6 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
 
-
 class User(AbstractUser):
     username = None
     email = models.EmailField(unique=True, verbose_name="Email")

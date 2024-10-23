@@ -1,6 +1,9 @@
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models import PositiveIntegerField
+from django.apps import apps
+
+User = apps.get_model('User')
 
 
 class Product(models.Model):
@@ -21,6 +24,8 @@ class Product(models.Model):
         help_text="Укажите количество просмотров",
         default=0
     )
+    author = models.ForeignKey('User', on_delete=models.CASCADE, verbose_name='Автор')
+    token = models.CharField(max_length=100, verbose_name='Токен', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Продукт'
