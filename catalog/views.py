@@ -34,14 +34,24 @@ class ProductUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
+
+        # Создание формы для версий продукта
         ProductFormset = inlineformset_factory(Product, Version, ProductForm, extra=1)
+
+        # Обработка POST запроса
         if self.request.method == 'POST':
             context_data['formset'] = ProductFormset(self.request.POST, instance=self.object)
         else:
             context_data['formset'] = ProductFormset(instance=self.object)
 
+        # Получение активной версии продукта
         active_version = Version.objects.filter(product=self.object, is_active=True).first()
-        context_data['active_version'] = active_version
+
+        # Проверка на активную версию продукта
+        if active_version:
+            context_data['active_version'] = active_version
+        else:
+            context_data['active_version'] = None  # или сообщение о том, что активной версии нет
 
         return context_data
 
