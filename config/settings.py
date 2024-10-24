@@ -12,7 +12,6 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
-    'phonenumber_field',
     'users',
     'blog',
     'catalog',
