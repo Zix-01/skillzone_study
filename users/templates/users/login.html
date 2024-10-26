@@ -18,7 +18,7 @@
                 <a href="#resetPassword" data-toggle="collapse" class="btn btn-link">Забыли пароль?</a>
             </div>
             <div id="resetPassword" class="collapse">
-                <form method="post" action="{% url 'password_reset_view' %}" class="mt-3">
+                <form method="post" action="{% url 'users:password_reset' %}" class="mt-3">
                     {% csrf_token %}
                     <input type="email" name="email" placeholder="Введите ваш email" required>
                     <button type="submit" class="btn btn-secondary mt-2">Восстановить пароль</button>
