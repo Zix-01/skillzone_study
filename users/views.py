@@ -1,6 +1,6 @@
 import string
 from random import random
-
+from django.contrib import messages
 from django.contrib.auth.hashers import make_password
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect, render
@@ -39,10 +39,6 @@ def email_verification(request, token):
     user = get_object_or_404(User, token=token)
     user.is_active = True
     return redirect(reverse('users:login'))
-
-from django.contrib import messages
-
-from django.contrib import messages
 
 def password_reset_view(request):
     if request.method == 'POST':

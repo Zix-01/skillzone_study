@@ -107,7 +107,7 @@ LOGOUT_REDIRECT_URL = '/'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = "koteika.koteevitch@yandex.ru"
-EMAIL_HOST_PASSWORD = "szgvkherthzgfusv"
+EMAIL_HOST_PASSWORD = "yhmqejdprtxdiiyp"
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
@@ -115,3 +115,4 @@ SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 LOGIN_URL = 'users:login'
+
