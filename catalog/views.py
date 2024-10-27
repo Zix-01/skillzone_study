@@ -61,13 +61,14 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         formset = context_data['formset']
         if form.is_valid() and formset.is_valid():
             self.object = form.save()
-            self.object.user = self.request.user
+            self.object.user = self.request.user   # привязка продукта к юзеру
             self.object.save()
-            formset.instance = self.object
+            formset.instance = self.object  # Установление связи между продуктом и версиями
             formset.save()
             return super().form_valid(form)
         else:
             return self.render_to_response(self.get_context_data(form=form, formset=formset))
+
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
