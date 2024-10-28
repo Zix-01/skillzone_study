@@ -84,3 +84,4 @@ def password_reset_view(request):
             messages.error(request, 'Введите корректный email.')
 
     return redirect(reverse('login'))
+
