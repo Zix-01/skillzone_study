@@ -1,6 +1,7 @@
 import string
 from random import random
 from django.contrib import messages
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect, render
@@ -20,11 +21,15 @@ class UserCreateView(CreateView):
     template_name = 'users/user_form.html'
 
     def form_valid(self, form):
-        user = form.save()
+        user = form.save(commit=False)
         user.is_active = False
         token = secrets.token_hex(16)
         user.token = token
+
+        # set_password для хэширования пароля
+        user.set_password(form.cleaned_data['password1'])
         user.save()
+
         host = self.request.get_host()
         url = f'http://{host}/users/email-confirm/{token}/'
         send_mail(
@@ -35,10 +40,25 @@ class UserCreateView(CreateView):
         )
         return super().form_valid(form)
 
+
+def login_view(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password1']
+        user = authenticate(request, email=email, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('success_url')
+        else:
+            return render(request, 'login.html', {'error': 'Invalid credentials'})
+    return render(request, 'login.html')
+
+
 def email_verification(request, token):
     user = get_object_or_404(User, token=token)
     user.is_active = True
     return redirect(reverse('users:login'))
+
 
 def password_reset_view(request):
     if request.method == 'POST':
@@ -58,9 +78,9 @@ def password_reset_view(request):
                 )
                 messages.success(request, 'Новый пароль отправлен на ваш email.')
             else:
-                messages.info(request, 'Пользователь с таким email не найден. Если вы считаете, что это ошибка, свяжитесь с поддержкой.')
+                messages.info(request,
+                              'Пользователь с таким email не найден. Если вы считаете, что это ошибка, свяжитесь с поддержкой.')
         else:
             messages.error(request, 'Введите корректный email.')
 
     return redirect(reverse('login'))
-
