@@ -1,86 +1,79 @@
+import random
+import secrets
 import string
-from random import random
-from django.contrib import messages
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.hashers import make_password
+
+from django.contrib.auth.views import LoginView
 from django.core.mail import send_mail
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView
 
 from config.settings import EMAIL_HOST_USER
+from users.forms import UserLoginForm
 from users.forms import UserRegisterForm
 from users.models import User
-import secrets
 
 
-class UserCreateView(CreateView):
+class UserLoginView(LoginView):
+    template_name = 'users/login.html'
+    form_class = UserLoginForm
+    redirect_authenticated_user = True  # авторизовать пользователя при успешном входе
+
+
+class UserRegisterView(CreateView):
     model = User
     form_class = UserRegisterForm
-    success_url = reverse_lazy('users:login')
     template_name = 'users/user_form.html'
+    success_url = reverse_lazy('users:login')
 
     def form_valid(self, form):
-        user = form.save(commit=False)
+        """Отправка пользователю письма с подтверждением регистрации"""
+        user = form.save()
         user.is_active = False
-        token = secrets.token_hex(16)
+        token = secrets.token_hex(16)  # генерит токен
         user.token = token
-
-        # set_password для хэширования пароля
-        user.set_password(form.cleaned_data['password1'])
         user.save()
-
-        host = self.request.get_host()
-        url = f'http://{host}/users/email-confirm/{token}/'
+        host = self.request.get_host()  # получение хоста
+        url = f'http://{host}/users/verify/{token}'
         send_mail(
-            subject='Подтверждение почты для входа в SkillZone',
-            message=f'Перейдите по ссылке для подтверждения почты - {url}',
+            subject=f'Подтверждение регистрации',
+            message=f'Для подтверждения регистрации перейдите по ссылке: {url}',
             from_email=EMAIL_HOST_USER,
-            recipient_list=[user.email]
+            recipient_list=[user.email],
         )
         return super().form_valid(form)
 
 
-def login_view(request):
-    if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password1']
-        user = authenticate(request, email=email, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('success_url')
-        else:
-            return render(request, 'login.html', {'error': 'Invalid credentials'})
-    return render(request, 'login.html')
-
-def email_verification(request, token):
-    user = get_object_or_404(User, token=token)
+def verify_mail(request, token):
+    """Подтверждение регистрации переход по ссылке из письма и редирект на страницу входа"""
+    user = get_object_or_404(User, token=token)  # получить пользователя по токен
     user.is_active = True
     user.save()
     return redirect(reverse('users:login'))
 
-def password_reset_view(request):
+
+def reset_password(request):
+    """Сброс пароля и отправка письма """
+
     if request.method == 'POST':
         email = request.POST.get('email')
-        if email:
-            new_password = ''.join(random.choices(string.ascii_letters + string.digits, k=12))
-            user = User.objects.filter(email=email).first()
-            if user:
-                user.password = make_password(new_password)
-                user.save()
-                send_mail(
-                    'Восстановление пароля',
-                    f'Ваш новый пароль: {new_password}',
-                    'koteika.koteevitch@yandex.ru',
-                    [email],
-                    fail_silently=False
-                )
-                messages.success(request, 'Новый пароль отправлен на ваш email.')
-            else:
-                messages.info(request,
-                              'Пользователь с таким email не найден. Если вы считаете, что это ошибка, свяжитесь с поддержкой.')
-        else:
-            messages.error(request, 'Введите корректный email.')
 
-    return redirect(reverse('login'))
+        if not User.objects.filter(email=email).exists():
+            # это чтобы яндекс не пытался отправить письмо на не существующий адрес
+            return render(request, template_name='users/login.html')
+        else:
+            user = get_object_or_404(User, email=email)
+            new_password = ''.join(random.choices(string.ascii_letters + string.digits, k=8))  # генерит новый пароль
+            user.set_password(new_password)
+            user.save()
+            send_mail(
+                subject=f'Сброс пароля',
+                message=f'Ваш новый пароль: {new_password}',
+                from_email=EMAIL_HOST_USER,
+                recipient_list=[email],
+            )
+        return redirect(reverse('users:login'))
+
+    return render(request, template_name='users/login.html')
+
 
