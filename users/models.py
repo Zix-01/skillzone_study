@@ -7,7 +7,8 @@ class User(AbstractUser):
 
     phoneNumber = models.CharField(max_length=10, verbose_name='номер телефона', blank=True, null=True, help_text='Введите номер телефона')
     nickname = models.CharField(max_length=30, verbose_name='имя пользователя', blank=True, null=True, help_text='Введите имя пользователя')
-    avatar = models.ImageField(upload_to='users/avatars/', blank=True, null=True, help_text='Выберите аватар')
+    avatar = models.ImageField(upload_to='users/avatars/', blank=True, null=True, help_text='Выберите аватар'),
+    token = models.CharField(blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

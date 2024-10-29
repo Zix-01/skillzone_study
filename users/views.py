@@ -53,12 +53,11 @@ def login_view(request):
             return render(request, 'login.html', {'error': 'Invalid credentials'})
     return render(request, 'login.html')
 
-
 def email_verification(request, token):
     user = get_object_or_404(User, token=token)
     user.is_active = True
+    user.save()
     return redirect(reverse('users:login'))
-
 
 def password_reset_view(request):
     if request.method == 'POST':
