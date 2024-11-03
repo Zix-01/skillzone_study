@@ -32,7 +32,7 @@ class UserRegisterView(CreateView):
         user.token = token
         user.save()
         host = self.request.get_host()  # получение хоста
-        url = f'http://{host}/users/verify/{token}'
+        url = f'http://{host}/users/verify/{user.token}'
         send_mail(
             subject=f'Подтверждение регистрации',
             message=f'Для подтверждения регистрации перейдите по ссылке: {url}',

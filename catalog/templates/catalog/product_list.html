@@ -16,12 +16,14 @@
             <div class="card-body">
                 <h1 class="card-title pricing-card-title" style="font-size: 19px; font-weight: 300;">
                     {{ product.description|truncatewords:100 }}</h1>
-                <a class="btn btn-primary" href="{% url 'catalog:product_detail' product.pk %}"
-                   role="button">Подробнее</a>
+                {% if perms.catalog.can_change_product_category and perms.catalog.can_change_product_category and perms.catalog.can_unpublish_product == product.owner %}
                 <a class="btn btn-primary" href="{% url 'catalog:product_update' product.pk %}"
                    role="button">Редактировать</a>
                 <a class="btn btn-primary" href="{% url 'catalog:product_delete' product.pk %}"
                    role="button">Удалить</a>
+                {% endif %}
+                <a class="btn btn-primary" href="{% url 'catalog:product_detail' product.pk %}"
+                   role="button">Подробнее</a>
             </div>
         </div>
     </div>

@@ -23,15 +23,19 @@ class Product(models.Model):
         default=0
     )
     author = models.ForeignKey(User, verbose_name="Автор курса", blank=True, null=True, on_delete=models.SET_NULL)
-    token = models.CharField(max_length=100, verbose_name='Токен', null=True, blank=True)
+    is_published = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
         ordering = ['name', 'price', 'created_at', 'updated_at', 'category']
-
-    def __str__(self):
-        return self.name
+        permissions = [
+            ("can_unpublish_product", "Может отменять публикацию продукта"),
+            ("can_change_product_description", "Может менять описание продукта"),
+            ("can_change_product_category", "Может менять категорию продукта"),
+        ]
+def __str__(self):
+    return self.name
 
 
 class Category(models.Model):

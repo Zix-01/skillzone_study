@@ -116,3 +116,5 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 LOGIN_URL = 'users:login'
 
+
+# ПАРОЛЬ ДЛЯ ЛОГИНА - D1Y-BVK5

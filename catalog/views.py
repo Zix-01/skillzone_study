@@ -1,8 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
+from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy, reverse
 
-from catalog.forms import ProductForm
+from catalog.forms import ProductForm, ModeratorForm
 from catalog.models import Product, Version
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -15,9 +17,11 @@ class ProductPageView(LoginRequiredMixin, DetailView):
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
-        self.object.views_counter += 1
-        self.object.save()
-        return self.object
+        if self.request.user == self.object.owner:
+            self.object.views_counter += 1
+            self.object.save()
+            return self.object
+        raise PermissionDenied()
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
@@ -68,6 +72,14 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
             return super().form_valid(form)
         else:
             return self.render_to_response(self.get_context_data(form=form, formset=formset))
+
+    def get_form_class(self):
+        user = self.request.user
+        if user == self.object.owner:
+            return ProductForm
+        if user.has_perm('catalog.can_unpublish_product') and user.has_perm('catalog.can_change_product_description') and user.has_perm('catalog.can_change_product_category'):
+            return ModeratorForm
+        raise PermissionDenied
 
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
