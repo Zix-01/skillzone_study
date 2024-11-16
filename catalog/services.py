@@ -1,8 +1,8 @@
-import redis
 from django.core.cache import cache
 
 from catalog.models import Category
 from config.settings import CACHES_ENABLED
+
 
 def get_categories():
     if not CACHES_ENABLED:

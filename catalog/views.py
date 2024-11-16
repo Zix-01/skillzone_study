@@ -8,12 +8,18 @@ from catalog.forms import ProductForm, ModeratorForm
 from catalog.models import Product, Version
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
+from catalog.services import get_categories
+
 
 class MainPageView(LoginRequiredMixin, ListView):
     model = Product
 
+
 class ProductPageView(LoginRequiredMixin, DetailView):
     model = Product
+
+    def get_queryset(self):
+        return get_categories()
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
